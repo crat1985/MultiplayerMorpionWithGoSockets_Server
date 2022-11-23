@@ -17,10 +17,16 @@ var Users []User
 
 // Fonction exécutée à chaque nouvelle connexion.
 func ProcessClient(conn net.Conn) {
+	//Affiche l'IP du client dans la console
 	fmt.Println("Nouvelle connexion de " + conn.RemoteAddr().String() + " !")
+	//Appel de la fonction AskPseudo
 	pseudo, err := AskPseudo(conn)
+	//Gérer l'erreur s'il y en a une
 	if err != nil {
+		//Afficher l'erreur
 		log.Print(err)
+		//Fermer la connexion
+		conn.Close()
 		return
 	}
 	AddToUsers(User{socket: conn, pseudo: pseudo})
