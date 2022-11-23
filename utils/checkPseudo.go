@@ -5,17 +5,20 @@ import (
 	"unicode"
 )
 
-func IsPseudoValid(pseudo string) bool {
+func IsPseudoValid(pseudo string) (string, bool) {
 	if !unicode.IsLetter(rune(pseudo[0])) {
-		return false
+		return "Le pseudo doit commencer par une lettre !", false
 	}
 	for _, char := range pseudo {
 		if !unicode.IsLetter(char) && !unicode.IsDigit(char) && string(char) != "_" {
-			return false
+			return "Le pseudo doit commencer par un lettre et ne contenir que des lettres, des chiffres et des underscores !", false
 		}
 	}
 	if strings.Contains(pseudo, "\n") || strings.Contains(pseudo, "\t") || strings.Contains(pseudo, " ") {
-		return false
+		return "Le pseudo ne peut pas contenir d'espaces, de tabulations ou de retours à la ligne !", false
 	}
-	return true
+	if IsConnected(pseudo) {
+		return "Ce pseudo est déjà utilisé par quelqu'un en ligne !", false
+	}
+	return "", true
 }

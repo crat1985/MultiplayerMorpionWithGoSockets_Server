@@ -12,8 +12,9 @@ func AskPseudo(conn net.Conn) (string, error) {
 		return "", err
 	}
 	pseudo := string(slice[:n])
-	if !IsPseudoValid(pseudo) {
-		conn.Write([]byte("Pseudo invalide !"))
+	response, valid := IsPseudoValid(pseudo)
+	if !valid {
+		conn.Write([]byte(response))
 		return "", errors.New("pseudo invalide")
 	}
 	return pseudo, nil
