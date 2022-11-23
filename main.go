@@ -7,8 +7,10 @@ import (
 	"github.com/RIC217/MultiplayerMorpionWithGoSockets_Server/utils"
 )
 
+// Port d'écoute du serveur
 const port = "8888"
 
+// Main function
 func main() {
 	log.Printf("Démarrage du serveur sur le port %s...\n", port)
 	listener, err := net.Listen("tcp", ":"+port)

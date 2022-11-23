@@ -5,6 +5,7 @@ import (
 	"unicode"
 )
 
+// Renvoie l'erreur en tant que string s'il y en a une, true pour le second renvoi si le pseudo est valide.
 func IsPseudoValid(pseudo string) (string, bool) {
 	if !unicode.IsLetter(rune(pseudo[0])) {
 		return "Le pseudo doit commencer par une lettre !", false

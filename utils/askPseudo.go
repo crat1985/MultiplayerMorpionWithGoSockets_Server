@@ -5,6 +5,7 @@ import (
 	"net"
 )
 
+// Attend le pseudo de l'utilisateur, le vérifie et revoie nil en tant qu'erreur si le pseudo est valide
 func AskPseudo(conn net.Conn) (string, error) {
 	slice := make([]byte, 1024)
 	n, err := conn.Read(slice)
