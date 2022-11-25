@@ -11,6 +11,10 @@ func IsPseudoValid(pseudo string) (string, bool) {
 	if !unicode.IsLetter(rune(pseudo[0])) {
 		return "Le pseudo doit commencer par une lettre !", false
 	}
+	//Vérifie si le pseudo a une longueur d'au moins 5 caractères
+	if len(pseudo) < 5 {
+		return "Le pseudo doit contenir au moins 5 caractères !", false
+	}
 	//Vérifie si le pseudo entier ne contient que des lettres, des nombres et des underscores
 	for _, char := range pseudo {
 		if !unicode.IsLetter(char) && !unicode.IsDigit(char) && string(char) != "_" {

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net"
+	"strings"
 )
 
 // Structure contenant les informations d'un utilisateur.
@@ -11,6 +12,14 @@ type User struct {
 	socket net.Conn
 	pseudo string
 }
+
+type Party struct {
+	owner  User
+	player User
+	id     string
+}
+
+var Parties []Party
 
 // Slice de tous les utilisateurs connectés.
 var Users []User
@@ -29,19 +38,30 @@ func ProcessClient(conn net.Conn) {
 		conn.Close()
 		return
 	}
-	AddToUsers(User{socket: conn, pseudo: pseudo})
+	tempUser := User{socket: conn, pseudo: pseudo}
+	AddToUsers(tempUser)
+	go ListenForDatas(tempUser)
 }
 
 // Inutile et faux pour l'instant.
-func ListenForDatas(conn net.Conn) {
+func ListenForDatas(user User) {
 	slice := make([]byte, 1024)
 	for {
-		n, err := conn.Read(slice)
+		n, err := user.socket.Read(slice)
 		if err != nil {
 			log.Print(err)
 			continue
 		}
 		datas := string(slice[:n])
-		log.Println(datas)
+		if datas == "createparty" {
+			if !AddElementToParties(CreateParty(user)) {
+				continue
+			}
+
+		}
+		if strings.HasPrefix(datas, "join ") {
+			JoinParty(user, strings.Split(datas, " ")[1])
+			continue
+		}
 	}
 }
