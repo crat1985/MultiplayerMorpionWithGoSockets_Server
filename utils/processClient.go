@@ -54,10 +54,7 @@ func ListenForDatas(user User) {
 		}
 		datas := string(slice[:n])
 		if datas == "createparty" {
-			if !CreateParty(user) {
-				continue
-			}
-
+			CreateParty(user)
 		}
 		if strings.HasPrefix(datas, "join ") {
 			JoinParty(user, strings.Split(datas, " ")[1])

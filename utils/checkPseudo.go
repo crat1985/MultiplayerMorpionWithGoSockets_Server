@@ -25,10 +25,6 @@ func IsPseudoValid(pseudo string) (string, bool) {
 	if strings.Contains(pseudo, "\n") || strings.Contains(pseudo, "\t") || strings.Contains(pseudo, " ") {
 		return "Le pseudo ne peut pas contenir d'espaces, de tabulations ou de retours à la ligne !", false
 	}
-	//Vérifie qu'aucun client n'est déjà connecté avec ce pseudo
-	if IsConnected(pseudo) {
-		return "Ce pseudo est déjà utilisé par quelqu'un en ligne !", false
-	}
 	//Renvoyer que tout s'est bien passé
 	return "", true
 }
