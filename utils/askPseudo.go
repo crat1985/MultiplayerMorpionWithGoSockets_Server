@@ -25,5 +25,6 @@ func AskPseudo(conn net.Conn) (string, error) {
 		conn.Write([]byte(response))
 		return "", errors.New("pseudo invalide")
 	}
+	conn.Write([]byte("pseudook"))
 	return pseudo, nil
 }

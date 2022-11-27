@@ -38,23 +38,23 @@ func ProcessClient(conn net.Conn) {
 		conn.Close()
 		return
 	}
+	//Varible qui stocke l'utilisateur de cette Goroutine
 	tempUser := User{socket: conn, pseudo: pseudo}
 	AddToUsers(tempUser)
 	go ListenForDatas(tempUser)
 }
 
-// Inutile et faux pour l'instant.
+// Ecoute les données envoyées par le client
 func ListenForDatas(user User) {
 	slice := make([]byte, 1024)
 	for {
 		n, err := user.socket.Read(slice)
 		if err != nil {
-			log.Print(err)
-			continue
+			break
 		}
 		datas := string(slice[:n])
 		if datas == "createparty" {
-			if !AddElementToParties(CreateParty(user)) {
+			if !CreateParty(user) {
 				continue
 			}
 
@@ -64,4 +64,7 @@ func ListenForDatas(user User) {
 			continue
 		}
 	}
+	//Affiche que l'utilisateur s'est déconnecté lorsqu'on ne peut plus lire de données de sa part
+	log.Println(user.pseudo + " s'est déconnecté !")
+	RemoveFromUsersByPseudo(user.pseudo)
 }

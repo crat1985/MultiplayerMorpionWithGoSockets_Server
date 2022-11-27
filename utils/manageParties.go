@@ -1,23 +1,12 @@
 package utils
 
-import "log"
-
-func HasOwnerAlreadyAParty(party Party) bool {
+func HasPseudoAlreadyAParty(pseudo string) bool {
 	for _, p := range Parties {
-		if p.owner.pseudo == party.owner.pseudo || p.player.pseudo == party.owner.pseudo {
+		if p.owner.pseudo == pseudo || p.player.pseudo == pseudo {
 			return true
 		}
 	}
 	return false
-}
-
-func AddElementToParties(party Party) (okay bool) {
-	if HasOwnerAlreadyAParty(party) {
-		return false
-	}
-	Parties = append(Parties, party)
-	log.Println("Partie " + party.id + " créée !")
-	return true
 }
 
 func RemoveElementFromPartiesByOwner(owner User) {
