@@ -11,4 +11,5 @@ func CreateParty(user User) {
 	tempParty := Party{owner: user, id: id}
 	Parties = append(Parties, tempParty)
 	log.Println("Partie " + tempParty.id + " créée (owner : " + tempParty.owner.pseudo + ") !")
+	user.socket.Write([]byte("partycreated"))
 }
