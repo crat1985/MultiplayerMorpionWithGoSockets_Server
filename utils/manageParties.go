@@ -1,15 +1,9 @@
 package utils
 
-func RemoveElementFromPartiesByOwnerPseudo(ownerPseudo string) {
-	index := -1
+func RemoveElementsFromPartiesByOwnerPseudo(ownerPseudo string) {
 	for i, party := range Parties {
 		if party.owner.pseudo == ownerPseudo {
-			index = i
-			break
+			Parties = append(Parties[:i], Parties[i+1:]...)
 		}
 	}
-	if index == -1 {
-		return
-	}
-	Parties = append(Parties[:index], Parties[index+1:]...)
 }
