@@ -63,5 +63,5 @@ func ListenForDatas(user User) {
 	}
 	//Affiche que l'utilisateur s'est déconnecté lorsqu'on ne peut plus lire de données de sa part
 	log.Println(user.pseudo + " s'est déconnecté !")
-	RemoveFromUsersByPseudo(user.pseudo)
+	RemoveFromUsersByUser(user)
 }

@@ -9,11 +9,11 @@ func AddToUsers(u User) {
 }
 
 // Supprime l'utilisateur ayant le pseudo passé en argument du slice d'utilisateurs.
-func RemoveFromUsersByPseudo(pseudo string) {
+func RemoveFromUsersByUser(u User) {
 	//Initialise index à -1
 	var index int = -1
 	for i, user := range Users {
-		if user.pseudo == pseudo {
+		if user == u {
 			index = i
 		}
 	}
@@ -24,5 +24,5 @@ func RemoveFromUsersByPseudo(pseudo string) {
 	}
 	//Supprimer l'utilisateur avec ce pseudo du slice d'utilisateurs
 	Users = append(Users[:index], Users[index+1:]...)
-	log.Printf("%s supprimé de la liste des utilisateurs en ligne !\n", pseudo)
+	log.Printf("%s supprimé de la liste des utilisateurs en ligne !\n", u.pseudo)
 }
